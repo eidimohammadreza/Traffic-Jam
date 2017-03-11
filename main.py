@@ -5,11 +5,11 @@ import numpy as np
 import matplotlib.pyplot as pl
 
 
-vi=input("please enter the initial velocity=")
-nm=input("please enter the max number of cars in the street=")
-dt=input("please enter the time step for computation (e.g. 0.1, 0.01, ...)=")
-tt=input("please enter the total time of simulation (based on min=")
-ti=input("please enter the time interval for adding new car to street= ")
+vi=float(input("please enter the initial velocity="))
+nm=float(input("please enter the max number of cars in the street="))
+dt=float(input("please enter the time step for computation (e.g. 0.1, 0.01, ...)="))
+tt=float(input("please enter the total time of simulation (based on min="))
+ti=float(input("please enter the time interval for adding new car to street= "))
 
 tt*=60
 
@@ -25,3 +25,5 @@ for i in range of (nm+1):
 for t in range of (0,tt,dt) :
     if t % ti == 0 : 
         st.append(t)
+        
+
