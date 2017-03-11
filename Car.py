@@ -1,13 +1,12 @@
-# for testting the Car class
+# the Car class
 
 class Car(object):
 # __init__
-    def __init__(self, x, v, min_dist, target_v, street = "0"):
+    def __init__(self, x, v, min_dist, target_v):
         self.x_ = x;
         self.min_dist_ = min_dist
         self.v_ = v
-        self.target_v_ = target_v
-        self.street_ = street
+        self.target_v_ = target_v 
 
 # methods
     @property
@@ -21,18 +20,15 @@ class Car(object):
     def set_v(self, v):
         self.v_ = v
 
-    def set_street(self, street_name):
-        self.street_ = street_name
 
-    @property
-    def street(self):
-        return self.street_
+    def update(self, next_car):
+        if self.target_v_ * dt < self.min_dist_:
+            self.v_ = self.target_v_
+        else:
+            self.v_ = float(next_car.x - self.min_dist_ - self.x_)/dt
 
-    def update_v(self):
-        return s1.L
-
-
-
+        self.x_ = self.x_ + self.v_ * dt
+        
 
 class Street(object):
     def __init__(self):
@@ -41,11 +37,10 @@ class Street(object):
 
 
 
-
 # ===== The following lines are for testing how the Car class works =====
 
 t = 1
-
+dt = 0.01
 s1 = Street()
 
 c1 = Car(2, 3, 4, 5)
@@ -54,11 +49,8 @@ print c1.x
 c1.set_v(100)
 print c1.v
 
-c1.set_street("Azadi")
-print c1.street
-
 c2 = Car(5, 6, 7, 8)
 c2.x_ = 999
 print c2.x
 
-print c1.update_v()
+print c1.update(c2) # currently prints None
