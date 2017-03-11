@@ -21,36 +21,41 @@ class Car(object):
         self.v_ = v
 
 
-    def update(self, next_car):
-        if self.target_v_ * dt < self.min_dist_:
+    def update(self, next_car = None):
+        #print "******", self.v
+
+        if next_car == None:
             self.v_ = self.target_v_
+            #print "vv ===>", self.v_
+            print "true"
+
         else:
-            self.v_ = float(next_car.x - self.min_dist_ - self.x_)/dt
+            print "false"
+            self.v_ = min( self.target_v_, float(next_car.x - self.min_dist_ - self.x_)/dt )
+            # here we assume that the front car is moved before; but even if it
+            # hasn't, we take the worst case in which we assume the fron car's
+            # velocity will be set to 0, and that again results the same equation.
 
         self.x_ = self.x_ + self.v_ * dt
-        
-
-class Street(object):
-    def __init__(self):
-        self.L = [1,2,3]
-
-
 
 
 # ===== The following lines are for testing how the Car class works =====
+"""
+t = 0.0
+dt = 0.1
 
-t = 1
-dt = 0.01
-s1 = Street()
+c1 = Car(2.0, 0.3, 0.4, 15.0)
+#print c1.target_v_
+c2 = Car(0.15,0.1, 0.04, 16.0)
+#print c2.target_v_
 
-c1 = Car(2, 3, 4, 5)
-print c1.x
 
-c1.set_v(100)
-print c1.v
+for i in range(25):
+    c1.update()
+    print "C1 -->", c1.x, c1.v
+    c2.update(c1)
+    print "C2 -->", c2.x, c2.v
+    print " -------------------------------------", c1.x - c2.x, "------------------------------------------"
+    print "\n"
 
-c2 = Car(5, 6, 7, 8)
-c2.x_ = 999
-print c2.x
-
-print c1.update(c2) # currently prints None
+"""
