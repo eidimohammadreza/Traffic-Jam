@@ -3,10 +3,16 @@
 class Car(object):
 # __init__
     def __init__(self, x, v, min_dist, target_v):
-        self.x_ = x;
+        self.x_ = x
         self.min_dist_ = min_dist
         self.v_ = v
         self.target_v_ = target_v 
+# status
+    def __str__(self): # just for printing a car's status directly
+        status = "x: {} ,   v: {}   ,   min dist:   {}  ,   target v:   {}\n"
+        return status.format(self.x_, self.v_, self.min_dist_, self.target_v_)
+    def status(self): # returns the status as a list, useful when running Street's status function
+        return [self.x_, self.v_, self.min_dist_, self.target_v_]
 
 # methods
     @property
@@ -16,21 +22,19 @@ class Car(object):
     @property
     def v(self):
         return self.v_
+    @property
+    def min_dist(self):
+        return self.min_dist_
 
     def set_v(self, v):
         self.v_ = v
 
 
-    def update(self, next_car = None):
-        #print "******", self.v
+    def update(self, next_car = None): # for a completely rational driver
 
         if next_car == None:
             self.v_ = self.target_v_
-            #print "vv ===>", self.v_
-            print "true"
-
         else:
-            print "false"
             self.v_ = min( self.target_v_, float(next_car.x - self.min_dist_ - self.x_)/dt )
             # here we assume that the front car is moved before; but even if it
             # hasn't, we take the worst case in which we assume the fron car's
@@ -40,6 +44,8 @@ class Car(object):
 
 
 # ===== The following lines are for testing how the Car class works =====
+dt = 0.01
+
 """
 t = 0.0
 dt = 0.1
@@ -55,7 +61,11 @@ for i in range(25):
     print "C1 -->", c1.x, c1.v
     c2.update(c1)
     print "C2 -->", c2.x, c2.v
-    print " -------------------------------------", c1.x - c2.x, "------------------------------------------"
-    print "\n"
+    if i == 20:
+        c1.set_v(0)
+    print " -------------------------------------", c1.x , c2.x, "------------------------------------------"
 
+    print "\n"
 """
+
+
