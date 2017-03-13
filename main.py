@@ -1,8 +1,10 @@
 # main part of Traffic Jam 
 
 import numpy as np
-import matplotlib.pyplot as pl
+import matplotlib.pyplot as plt
 import random
+from matplotlib import animation
+
 
 import constants
 from Car import Car
@@ -27,16 +29,34 @@ time_interval = float( input("please enter the time interval for adding new car 
 t = 0.0
 dt = constants.time_step
 total_time = 100 # seconds
-sreet_length = 10000 # meters
+street_length = 200 # meters
 max_cars = 20
 #time_interval = 10
 generation_step = time_to_steps(1)
 max_steps = time_to_steps(total_time)
 
-s = Street(sreet_length)
+s = Street(street_length)
 
 
-for i in range(max_steps):
+# First set up the figure, the axis, and the plot element we want to animate
+fig = plt.figure()
+ax = plt.axes(xlim=(0, street_length), ylim=(-2, 2))
+line, = ax.plot([], [], 'o', lw=2)
+
+# initialization function: plot the background of each frame
+def init():
+    line.set_data([], [])
+    return line,
+
+def animate(i):
+#    x1 = np.linspace(0, 2, 1000)
+#    y1 = np.sin(2 * np.pi * (x1 - 0.01 * i))
+#    print x1,y1
+       
+    
+
+
+
     print "- step ", i, ":"
     if i%generation_step == 0:
         #later : check if there's no car in the generating point
@@ -45,8 +65,34 @@ for i in range(max_steps):
         print "car created with:", x, v, min_dist, target_v, "\n"
         c = Car(x, v, min_dist, target_v)
         s.add_car(c)
-        
+    
+    x = s.x_list
+    y = np.zeros(len(x))  
+    print s.x_list
+    print y
+    line.set_data(x, y) 
+  
+
     s.update_cars()
-    t = t + dt
-    s.status_print()
+
+
+
+
+#    t = t + dt
+    #s.status_print()
+    return line,
+
+
+# call the animator.  blit=True means only re-draw the parts that have changed.
+anim = animation.FuncAnimation(fig, animate, np.arange(0, max_steps),interval=50, blit=True, init_func=init)
+
+
+
+
+
+
+plt.show()
+
+
+
 
