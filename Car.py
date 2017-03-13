@@ -1,4 +1,6 @@
 # the Car class
+import constants
+dt = constants.time_step
 
 class Car(object):
 # __init__
@@ -44,7 +46,7 @@ class Car(object):
 
 
 # ===== The following lines are for testing how the Car class works =====
-dt = 0.01
+#dt = 0.01 # should be here! solve it later
 
 """
 t = 0.0

@@ -4,6 +4,7 @@ import numpy as np
 import matplotlib.pyplot as pl
 import random
 
+import constants
 from Car import Car
 from Street import Street
 
@@ -24,7 +25,7 @@ time_interval = float( input("please enter the time interval for adding new car 
 """
 
 t = 0.0
-dt = 0.1
+dt = constants.time_step
 total_time = 100 # seconds
 sreet_length = 10000 # meters
 max_cars = 20
@@ -48,22 +49,4 @@ for i in range(max_steps):
     s.update_cars()
     t = t + dt
     s.status_print()
-
-
-
-
-"""
-st=[]   # creation of street
-tv=[]
-
-# creation of target of velecities
-
-for i in range (nm+1):
-    tv=random.uniform(2*vi,10*vi)
-    
-
-for t in range (0,tt,dt) :
-    if t % ti == 0:
-        st.append(t)
-"""
 

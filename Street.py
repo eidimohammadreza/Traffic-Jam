@@ -14,7 +14,7 @@ class Street(object):
         print "\n===== Status of street: =====\n"
         for car in self.cars_:
             print car
-    
+
     def status_list(self):
         status_list =[]
         for car in self.cars_:
@@ -33,6 +33,13 @@ class Street(object):
     @property
     def lines(self):
         return self.lines_
+
+    @property
+    def x_list(self):
+        X = []
+        for car in self.cars_:
+            X.append(car.x)
+        return X
 
     def add_car(self, c):
         if len(self.cars_) > 0:
@@ -83,4 +90,6 @@ s.update_cars()
 s.status_print()
 s.add_car(c3)
 s.status_print()
+print s.x_list
 """
+
