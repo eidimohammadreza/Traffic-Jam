@@ -29,7 +29,7 @@ time_interval = float( input("please enter the time interval for adding new car 
 t = 0.0
 dt = constants.time_step
 total_time = 100 # seconds
-street_length = 200 # meters
+street_length = 15 # meters
 max_cars = 20
 #time_interval = 10
 generation_step = time_to_steps(1)
@@ -57,19 +57,19 @@ def animate(i):
 
 
 
-    print "- step ", i, ":"
+    #print "- step ", i, ":"
     if i%generation_step == 0:
         #later : check if there's no car in the generating point
         target_v = random.uniform(0, 10)
-        x, v, min_dist = 0, random.uniform(0, target_v), random.uniform(0,5)
+        x, v, min_dist = 0, random.uniform(1, target_v), random.uniform(1,5)
         print "car created with:", x, v, min_dist, target_v, "\n"
         c = Car(x, v, min_dist, target_v)
         s.add_car(c)
     
     x = s.x_list
     y = np.zeros(len(x))  
-    print s.x_list
-    print y
+    #print s.x_list
+    #print y
     line.set_data(x, y) 
   
 
@@ -84,7 +84,7 @@ def animate(i):
 
 
 # call the animator.  blit=True means only re-draw the parts that have changed.
-anim = animation.FuncAnimation(fig, animate, np.arange(0, max_steps),interval=50, blit=True, init_func=init)
+anim = animation.FuncAnimation(fig, animate, np.arange(0, max_steps),interval=20, blit=False, init_func=init)
 
 
 
