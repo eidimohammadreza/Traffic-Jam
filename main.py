@@ -7,6 +7,9 @@ import random
 from Car import Car
 from Street import Street
 
+def time_to_steps(t):
+    return int(t/dt +1)
+
 
 # taking inputs from the user:
 # for testing purposes, I've commented them so not being stuck with typing inputs every time we test the main.py
@@ -22,22 +25,22 @@ time_interval = float( input("please enter the time interval for adding new car 
 
 t = 0.0
 dt = 0.1
-total_time = 10 # seconds
+total_time = 100 # seconds
 sreet_length = 10000 # meters
 max_cars = 20
 #time_interval = 10
-generation_step = 10
-max_steps = int(total_time/dt +1)
+generation_step = time_to_steps(1)
+max_steps = time_to_steps(total_time)
 
 s = Street(sreet_length)
 
 
 for i in range(max_steps):
-
+    print "- step ", i, ":"
     if i%generation_step == 0:
         #later : check if there's no car in the generating point
         target_v = random.uniform(0, 10)
-        x, v, min_dist = 0, random.uniform(0, target_v), random.uniform(0,1)
+        x, v, min_dist = 0, random.uniform(0, target_v), random.uniform(0,5)
         print "car created with:", x, v, min_dist, target_v, "\n"
         c = Car(x, v, min_dist, target_v)
         s.add_car(c)
