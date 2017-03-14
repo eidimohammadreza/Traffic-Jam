@@ -57,13 +57,14 @@ class Street(object):
             self.cars_.append(c)
 
     def update_cars(self):
-        #for i, car in enumerate(self.cars_) :   # in fact the first item in the list is the last car in the street queue
-        end_car = self.cars_[0] # first update the car which is ahead of others (staying at the end of the street)
-        end_car.update()
+
+        # Notice! : the first item in the list is the last car in the street queue
         for i in range( 1, len(self.cars_) ): # now update other cars behind it, respectively
-            car = self.cars_[i]
-            next_car = self.cars_[i-1]
+            car = self.cars_[-i]
+            next_car = self.cars_[-1-i]
             car.update(next_car)
+        end_car = self.cars_[0]
+        end_car.update()
         if len(self.queue_) > 0:
             first_in_queue = self.queue_[0]
             nearest_car = self.cars_[-1]
