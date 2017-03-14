@@ -70,7 +70,11 @@ class Street(object):
         for i in range( 1, len(self.cars_) ): # now update other cars behind it, respectively
             car = self.cars_[-i]
             next_car = self.cars_[-1-i]
+
             car.update(next_car)
+
+
+
         end_car = self.cars_[0]
         end_car.update()
         if len(self.queue_) > 0:

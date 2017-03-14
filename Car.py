@@ -1,14 +1,25 @@
 # the Car class
-import constants
+import constants, random
 dt = constants.time_step
+
+
+def prob(p):
+    a = random.uniform(0,1)
+    if a<p:
+        return True
+    else:
+        return False
+
 
 class Car(object):
 # __init__
-    def __init__(self, x, v, min_dist, target_v):
+    def __init__(self, x, v, min_dist, target_v, stop = False):
         self.x_ = x
         self.min_dist_ = min_dist
         self.v_ = v
-        self.target_v_ = target_v 
+        self.target_v_ = target_v
+
+        self.stop_ = stop
 # status
     def __str__(self): # just for printing a car's status directly
         status = "x: {} ,   v: {}   ,   min dist:   {}  ,   target v:   {}\n"
@@ -41,6 +52,12 @@ class Car(object):
             # here we assume that the front car is moved before; but even if it
             # hasn't, we take the worst case in which we assume the fron car's
             # velocity will be set to 0, and that again results the same equation.
+        if self.stop_ == True:
+            self.v_ = 0
+        """
+        if(prob(0.05)):
+            self.v_ = 0
+        """
 
         self.x_ = self.x_ + self.v_ * dt
 

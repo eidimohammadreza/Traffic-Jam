@@ -13,6 +13,12 @@ from Street import Street
 def time_to_steps(t):
     return int(t/dt +1)
 
+def prob(p):
+    a = random.uniform(0,1)
+    if a<p:
+        return True
+    else:
+        return False
 
 # taking inputs from the user:
 # for testing purposes, I've commented them so not being stuck with typing inputs every time we test the main.py
@@ -31,7 +37,7 @@ time_interval = float( input("please enter the time interval for adding new car 
 t = 0.0
 dt = constants.time_step
 total_time = 200 # seconds
-street_length = 200 # meters
+street_length = 500 # meters
 max_cars = 20
 #time_interval = 10
 generation_step = time_to_steps(1)
@@ -76,13 +82,12 @@ def init():
 
 def animate(i):
 
-
     #Checks if should generate a new car:
    
     #print "- step ", i, ":"
     if i%generation_step == 0:
         #later : check if there's no car in the generating point
-        target_v = random.uniform(10, 10)
+        target_v = 7 #random.uniform(5, 10)
         x, v, min_dist = 0, random.uniform(1, target_v), random.uniform(1,5)
         print "car created with:", x, v, min_dist, target_v, "\n"
         c = Car(x, v, min_dist, target_v)
@@ -91,6 +96,38 @@ def animate(i):
     
     #sets time and gets the position of each car. y position is set to zero by default.
     t=i*dt
+    print t
+
+
+    """
+    # added these to stop a car for a while
+    if len(s.cars)>1:
+        if prob(0.1):
+            bad_car = s.cars_[ random.randint( 0, len(s.cars) -1 ) ]
+    """
+
+
+    if len(s.cars)>2 and len(s.cars) < 20:
+        bad_car = s.cars_[1]
+        if t>15 and t< 20:
+            bad_car.stop_ = True
+        else:
+            bad_car.stop_ = False
+
+    if len(s.cars)>20:
+        bad_car = s.cars_[15]
+        if t>25 and t< 30:
+            bad_car.stop_ = True
+        else:
+            bad_car.stop_ = False
+
+    if len(s.cars)>30:
+        bad_car = s.cars_[29]
+        if t>34 and t< 40:
+            bad_car.stop_ = True
+        else:
+            bad_car.stop_ = False
+
     x = s.x_list
     y = np.zeros(len(x)) 
     
@@ -109,7 +146,10 @@ def animate(i):
 
   
     #calls the function that updates the position of the cars
+
     s.update_cars()
+
+
 
     return line1, lines
 
@@ -125,4 +165,4 @@ plt.show()
 
 
 
-
+1
