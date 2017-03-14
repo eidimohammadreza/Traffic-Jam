@@ -42,22 +42,27 @@ s = Street(street_length)
 
 # First set up the figure, the axis, and the plot element we want to animate
 
-
-#fig = plt.figure()
-#ax1 = plt.axes(xlim=(0, street_length), ylim=(-2, 2))
-#ax2 = plt.axes(xlim=(0, street_length), ylim=(0, 30))
-
 fig = plt.figure()
-ax1 = fig.add_subplot(211, autoscale_on=False, xlim=(0, street_length), ylim=(-2, 2))
-ax1.grid()
+
+
+ax1 = fig.add_subplot(211, autoscale_on=False, xlim=
+(0, street_length), ylim=(-2, 2))
+#ax1.grid()
+ax1.set_title('Traffic Jam')
+
+
+ax1.plot((0,street_length),(0.5,0.5),c='black')
+ax1.plot((0,street_length),(-0.5,-0.5),c='black')
+ax1.set_yticks([])
 
 ax2 =fig.add_subplot(212, autoscale_on=False, xlim=(0, street_length), ylim=(0, 50))
-
+ax2.set_ylabel('Time (s)')
+ax2.set_xlabel('Cars Positions (m)')
 
 
 
 #Animate the cars
-line1, = ax1.plot([], [], 'o', lw=2)
+line1, = ax1.plot([], [], marker='s',lw=0,markersize=3)
 
 #Create a list that stores the plot for each cars history
 lines = []
@@ -112,7 +117,9 @@ def animate(i):
 
 
 # call the animator.  blit=True means only re-draw the parts that have changed.
+
 anim = animation.FuncAnimation(fig, animate, np.arange(0, max_steps),interval=20, blit=False, init_func=init)
+
 
 plt.show()
 
