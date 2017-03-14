@@ -5,7 +5,6 @@ import matplotlib.pyplot as plt
 import random
 from matplotlib import animation
 
-
 import constants
 from Car import Car
 from Street import Street
@@ -32,8 +31,6 @@ total_time = float( input("please enter the total time of simulation (in seconds
 time_interval = float( input("please enter the time interval for adding new car to street (in seconds) = ") )
 """
 
-
-
 t = 0.0
 dt = constants.time_step
 total_time = 200 # seconds
@@ -48,8 +45,8 @@ s = Street(street_length)
 
 # First set up the figure, the axis, and the plot element we want to animate
 
+""" Start: Plot Presetup """
 fig = plt.figure()
-
 
 ax1 = fig.add_subplot(211, autoscale_on=False, xlim=
 (0, street_length), ylim=(-2, 2))
@@ -65,8 +62,6 @@ ax2 =fig.add_subplot(212, autoscale_on=False, xlim=(0, street_length), ylim=(0, 
 ax2.set_ylabel('Time (s)')
 ax2.set_xlabel('Cars Positions (m)')
 
-
-
 #Animate the cars
 line1, = ax1.plot([], [], marker='s',lw=0,markersize=3)
 
@@ -74,11 +69,13 @@ line1, = ax1.plot([], [], marker='s',lw=0,markersize=3)
 lines = []
 
 
-
 # initialization function: plot the background of each frame
 def init():
     line1.set_data([], [])
     return line1    
+
+""" End: Plot Presetup """
+
 
 def animate(i):
 
@@ -96,8 +93,6 @@ def animate(i):
     
     #sets time and gets the position of each car. y position is set to zero by default.
     t=i*dt
-    print t
-
 
     """
     # added these to stop a car for a while
@@ -129,40 +124,28 @@ def animate(i):
             bad_car.stop_ = False
 
     x = s.x_list
-    y = np.zeros(len(x)) 
-    
+    y = np.zeros(len(x))
     
     #updates the position of each car in the graph.
     line1.set_data(x,y)
 
     #stores the history of each car in its correspondant plot.
     j=0
+
     for linita in lines:
-        
-        
         linita.set_xdata(np.append(linita.get_xdata(),x[j]))
         linita.set_ydata(np.append(linita.get_ydata(),t))
         j=j+1
 
-  
     #calls the function that updates the position of the cars
 
     s.update_cars()
-
-
-
     return line1, lines
-
-
 
 
 # call the animator.  blit=True means only re-draw the parts that have changed.
 
 anim = animation.FuncAnimation(fig, animate, np.arange(0, max_steps),interval=20, blit=False, init_func=init)
 
-
 plt.show()
 
-
-
-1
