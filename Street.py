@@ -1,7 +1,9 @@
 from Car import Car
 class Street(object):
+    """ A street object has a length (in m^2), a list of cars, and number of lines """
 # __init__
     def __init__(self, length, cars = [], lines = 1):
+        """ For defining a Street """
         self.length_ = float(length)
         self.cars_ = cars
         self.lines_ = lines
@@ -11,11 +13,13 @@ class Street(object):
 
 # status
     def status_print(self):
+        """ Prints the status of all of the cars included in the street. See the __str__ function in the Car class. """
         print "\n===== Status of street: =====\n"
         for car in self.cars_:
             print car
 
     def status_list(self):
+        """ Prints the status of all of the cars as a 2-d list """
         status_list =[]
         for car in self.cars_:
             status_list.append( car.status() )
@@ -50,6 +54,8 @@ class Street(object):
 
 
     def add_car(self, c):
+        """ adds a car to the street if there's no any car in it; otherwise, it will add the car to the queue, 
+the cars are entered from the queue to the street when there's enough space ( more than the car's minimum distance ) in the update_cars function. """
         if len(self.cars_) > 0:
             if len(self.queue_) > 0:
                 self.queue_.append(c)
@@ -65,14 +71,13 @@ class Street(object):
             self.cars_.append(c)
 
     def update_cars(self):
-
+        """ updates all of the cars in the cars_ list, by calling the update() function for each car, starting from the car staying at the end of the list. """
         # Notice! : the first item in the list is the last car in the street queue
         for i in range( 1, len(self.cars_) ): # now update other cars behind it, respectively
             car = self.cars_[-i]
             next_car = self.cars_[-1-i]
 
             car.update(next_car)
-
 
 
         end_car = self.cars_[0]
@@ -85,6 +90,7 @@ class Street(object):
                 del self.queue_[0] #after adding it, remove it from queue
                 print "<< car entered to the street from the queue"
 
+""" These are some examples for testing this class separately. """
 """
 s = Street(100)
 c1 = Car(10,2,3,4)

@@ -20,6 +20,7 @@ def prob(p):
         return False
 
 def generate_cars(i):
+    """ generates cars with random initial values and adds them to the street, using the add_cars() funtion inside the Street class. """
     if i%generation_step == 0:
         #later : check if there's no car in the generating point
         target_v = 7 #random.uniform(5, 10)
@@ -32,7 +33,8 @@ def generate_cars(i):
 # taking inputs from the user:
 # for testing purposes, I've commented them so not being stuck with typing inputs every time we test the main.py
 # hint: a way of getting inputs as argument values should be implemented
-# 
+
+
 """
 v_i = float( input("please enter the initial velocity in term of km/h = ") )
 max_cars = int( input("please enter the max number of cars in the street = ") )
@@ -51,7 +53,6 @@ generation_step = time_to_steps(1)
 max_steps = time_to_steps(total_time)
 
 s = Street(street_length)
-
 
 # First set up the figure, the axis, and the plot element we want to animate
 
@@ -86,8 +87,8 @@ def init():
 
 """ End: Plot Presetup """
 
-
 def animate(i):
+    """ This function does the main job, as well as generating the animation. This will be iterated by the Matplotlib's animation.FuncAnimation() function. """
     generate_cars(i) #Checks if should generate a new car, and does it
 
     #sets time and gets the position of each car. y position is set to zero by default.
@@ -140,10 +141,7 @@ def animate(i):
     s.update_cars()
     return line1, lines
 
-
 # call the animator.  blit=True means only re-draw the parts that have changed.
 
 anim = animation.FuncAnimation(fig, animate, np.arange(0, max_steps),interval=20, blit=False, init_func=init)
-
 plt.show()
-

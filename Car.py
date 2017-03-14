@@ -4,6 +4,7 @@ dt = constants.time_step
 
 
 def prob(p):
+    """ returns True with probability p """
     a = random.uniform(0,1)
     if a<p:
         return True
@@ -12,8 +13,13 @@ def prob(p):
 
 
 class Car(object):
+    """ a car should be created with initial position, velocity, target velocity (the one the driver wants to reach to, 
+if it is possible without any collisions occuring), and the minimum distance the driver wants to keep with the one
+in front of it. """
+
 # __init__
     def __init__(self, x, v, min_dist, target_v, stop = False):
+        """ initial conditions for creating a car """
         self.x_ = x
         self.min_dist_ = min_dist
         self.v_ = v
@@ -21,7 +27,8 @@ class Car(object):
 
         self.stop_ = stop
 # status
-    def __str__(self): # just for printing a car's status directly
+    def __str__(self):
+        """ just for printing a car's status directly """
         status = "x: {} ,   v: {}   ,   min dist:   {}  ,   target v:   {}\n"
         return status.format(self.x_, self.v_, self.min_dist_, self.target_v_)
     def status(self): # returns the status as a list, useful when running Street's status function
@@ -44,6 +51,9 @@ class Car(object):
 
 
     def update(self, next_car = None): # for a completely rational driver
+        """ This is the function which updates the velocity and the position of the car, based on the position of the car it is faced to.
+The method is that it assumes the worst case, where the next car's velocity becomes 0 suddenly, and based on that, decides which
+velocity it should have so that it won't collide with the next car. If its target velocity is less than that limiting velocity, it obtains its target velocity. """
 
         if next_car == None:
             self.v_ = self.target_v_
