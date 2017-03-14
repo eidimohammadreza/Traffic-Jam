@@ -60,7 +60,7 @@ def animate(i):
     print "- step ", i, ":"
     if i%generation_step == 0:
         #later : check if there's no car in the generating point
-        target_v = random.uniform(0, 10)
+        target_v = random.uniform(1, 10)
         x, v, min_dist = 0, random.uniform(0, target_v), random.uniform(0,5)
         print "car created with:", x, v, min_dist, target_v, "\n"
         c = Car(x, v, min_dist, target_v)
@@ -84,7 +84,7 @@ def animate(i):
 
 
 # call the animator.  blit=True means only re-draw the parts that have changed.
-anim = animation.FuncAnimation(fig, animate, np.arange(0, max_steps),interval=50, blit=True, init_func=init)
+anim = animation.FuncAnimation(fig, animate, np.arange(0, max_steps),interval=street_length, blit=True, init_func=init)
 
 
 
