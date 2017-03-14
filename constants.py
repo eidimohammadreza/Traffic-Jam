@@ -1,1 +1,1 @@
-time_step = 0.001
+time_step = 0.1
