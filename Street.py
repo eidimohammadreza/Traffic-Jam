@@ -41,6 +41,14 @@ class Street(object):
             X.append(car.x)
         return X
 
+    @property
+    def v_list(self):
+        v = []
+        for car in self.cars_:
+            v.append(car.v)
+        return v
+
+
     def add_car(self, c):
         if len(self.cars_) > 0:
             if len(self.queue_) > 0:
